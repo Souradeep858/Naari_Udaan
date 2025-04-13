@@ -1,4 +1,19 @@
 # 🌸 Naari Udaan: AI for Financial Empowerment of Rural Women
+
+## 📌 Project Overview
+**Naari Udaan** is a low-code, multilingual AI-powered web platform designed to promote financial literacy and micro-investment education among rural women in India. It combines AI chat, sentiment detection, and gamified learning modules in local languages like Hindi, Bengali, and Marathi.
+
+---
+
+## 🔄 Project Workflow
+![Workflow Diagram](workflow.png)
+
+### 🧠 AI-Powered Interaction Flow
+1. **User Onboarding**
+   - User selects preferred language and avatar.
+   - Flask backend renders welcome screen with dynamic content.
+
+2. **Mood & Sentiment Detection**
    - User types how she is feeling.
    - Mood detected using `VADER` or `TextBlob`.
    - Weather API used to change background visuals.
