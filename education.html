@@ -1,184 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Naari Udaan - Education</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    .dynamic-bg {
-      background-size: cover;
-      background-position: center;
-      transition: background 1s ease-in-out;
-    }
-    .avatar-bounce {
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Portal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      .dynamic-bg {
+        background-size: cover;
+        background-position: center;
+        transition: background 1s ease-in-out;
       }
-      50% {
-        transform: translateY(-10px);
+  
+      .avatar-bounce {
+        animation: bounce 2s infinite;
       }
-    }
-    select option {
-      color: black;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://smallenterpriseindia.com/wp-content/uploads/2024/03/1709864973578.jpg');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.2;
-      z-index: -1;
-    }
-  </style>
+  
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+  
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+  
+      select option {
+        color: black;
+      }
+  
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://smallenterpriseindia.com/wp-content/uploads/2024/03/1709864973578.jpg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+        z-index: -1;
+      }
+    </style>
+    <script>
+        // Dynamic Module Content
+        function loadModule(moduleName) {
+            const content = {
+                'Business Basics': {
+                    content: `
+                        <h2 class="text-2xl font-semibold">Business Basics</h2>
+                        <p class="mt-4">In this module, you will learn about the fundamentals of starting and growing a business. Topics include:</p>
+                        <ul class="list-disc pl-5 mt-2">
+                            <li>How to identify business opportunities</li>
+                            <li>Understanding markets and customers</li>
+                            <li>Building a business plan</li>
+                            <li>Financing your business</li>
+                        </ul>
+                        <p class="mt-4">By the end of this module, you will have a strong foundation in business management!</p>
+                    `,
+                },
+                'Digital Literacy': {
+                    content: `
+                        <h2 class="text-2xl font-semibold">Digital Literacy</h2>
+                        <p class="mt-4">In this module, you'll get to understand how to use smartphones, apps, and the internet effectively. Topics include:</p>
+                        <ul class="list-disc pl-5 mt-2">
+                            <li>How to operate digital devices</li>
+                            <li>Using mobile apps for business and communication</li>
+                            <li>Understanding internet safety</li>
+                            <li>Basic troubleshooting skills</li>
+                        </ul>
+                        <p class="mt-4">This module is designed to help you be confident using digital tools!</p>
+                    `,
+                },
+                'Financial Education': {
+                    content: `
+                        <h2 class="text-2xl font-semibold">Financial Education</h2>
+                        <p class="mt-4">In this module, you will explore how to manage money, save, and grow your finances. Topics include:</p>
+                        <ul class="list-disc pl-5 mt-2">
+                            <li>Saving strategies</li>
+                            <li>Understanding loans and credit</li>
+                            <li>Basic investment principles</li>
+                            <li>Managing business cash flow</li>
+                        </ul>
+                        <p class="mt-4">By the end of this module, you'll have a solid understanding of managing your finances effectively!</p>
+                    `,
+                },
+            };
+
+            const moduleContent = content[moduleName].content;
+            const moduleContainer = document.getElementById('moduleContent');
+            moduleContainer.innerHTML = moduleContent;
+
+            // Show the certificate button after module completion
+            setTimeout(() => {
+                alert(`Congratulations! You have completed the ${moduleName} course.`);
+                document.getElementById('certificateButton').classList.remove('hidden');
+            }, 3000); // Simulated delay for reading the module
+        }
+
+        // AI Copilot Communication
+        async function sendToCopilot() {
+            const question = document.getElementById("userInput").value;
+            const language = document.getElementById("languageSelect").value || "English";
+            const responseEl = document.getElementById("aiResponse");
+            responseEl.textContent = "Thinking...";
+
+            if (!question) {
+                responseEl.textContent = "Please enter a question.";
+                return;
+            }
+
+            try {
+                const res = await fetch("http://localhost:5000/api/ask", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ question, language }),
+                });
+
+                const data = await res.json();
+                if (data.answer) {
+                    responseEl.textContent = data.answer;
+                } else {
+                    responseEl.textContent = "Sorry, I couldn't understand that.";
+                }
+            } catch (err) {
+                responseEl.textContent = "Error connecting to AI Copilot. Please try again.";
+            }
+        }
+
+        // Certificate Generation
+        function generateCertificate(moduleName) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Add title to the certificate
+            doc.setFontSize(22);
+            doc.text('Certificate of Completion', 105, 30, null, null, 'center');
+
+            // Add the text for the certificate
+            doc.setFontSize(16);
+            doc.text(`This certifies that`, 105, 60, null, null, 'center');
+            doc.text(`[Student's Name] has successfully completed`, 105, 70, null, null, 'center');
+            doc.text(`the course: ${moduleName}`, 105, 80, null, null, 'center');
+
+            // Add date and signature (simplified)
+            const date = new Date().toLocaleDateString();
+            doc.text(`Date: ${date}`, 105, 100, null, null, 'center');
+
+            // Save the PDF as a certificate
+            doc.save(`${moduleName}_Certificate.pdf`);
+        }
+    </script>
 </head>
-<body class="min-h-screen bg-white text-gray-800">
+<body class="bg-gray-100">
 
-  <header class="bg-indigo-600 text-white py-4 text-center text-xl font-bold shadow-md">
-    📚 <span id="headerText">Naari Udaan - Education Portal</span>
-  </header>
+    <!-- Header Section -->
+    <header class="bg-blue-500 text-white text-center p-4">
+        <h1 class="text-3xl">Welcome to the Education Portal</h1>
+    </header>
 
-  <main class="p-6 space-y-6">
-    <section class="text-center">
-      <h2 id="welcomeText" class="text-2xl font-bold mb-2">Welcome, Learner! 🌼</h2>
-      <p id="instructionText" class="text-gray-700">Choose your language and dive into the learning journey!</p>
-    </section>
-
-    <section class="flex justify-center">
-      <select id="languageSelect" class="p-2 border border-gray-300 rounded-md shadow" onchange="translateUI()">
-        <option selected disabled>Select Your Language</option>
-        <option value="English">English</option>
-        <option value="Hindi">Hindi</option>
-        <option value="Marathi">Marathi</option>
-        <option value="Tamil">Tamil</option>
-        <option value="Telugu">Telugu</option>
-        <option value="Bengali">Bengali</option>
-      </select>
-    </section>
-
-    <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <button onclick="loadModule('Business Basics')" class="bg-white rounded-xl shadow-lg p-4 text-center hover:shadow-xl transition">
-        <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Module Icon" class="w-16 h-16 mx-auto mb-2">
-        <h3 class="font-bold text-lg" id="module1Title">Business Basics</h3>
-        <p class="text-sm" id="module1Desc">Learn how to start and grow your own business.</p>
-      </button>
-      <button onclick="loadModule('Digital Literacy')" class="bg-white rounded-xl shadow-lg p-4 text-center hover:shadow-xl transition">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Module Icon" class="w-16 h-16 mx-auto mb-2">
-        <h3 class="font-bold text-lg" id="module2Title">Digital Literacy</h3>
-        <p class="text-sm" id="module2Desc">Understand how to use smartphones, apps, and the internet.</p>
-      </button>
-      <button onclick="loadModule('Financial Education')" class="bg-white rounded-xl shadow-lg p-4 text-center hover:shadow-xl transition">
-        <img src="https://cdn-icons-png.flaticon.com/512/4285/4285495.png" alt="Module Icon" class="w-16 h-16 mx-auto mb-2">
-        <h3 class="font-bold text-lg" id="module3Title">Financial Education</h3>
-        <p class="text-sm" id="module3Desc">Explore savings, loans, and managing money smartly.</p>
-      </button>
-    </section>
-
-    <section class="mt-8">
-      <div class="bg-indigo-100 rounded-xl p-4 shadow-md">
-        <h3 class="text-lg font-bold mb-2">🤖 <span id="copilotTitle">Talk with AI Copilot</span></h3>
-        <div class="flex flex-col space-y-2">
-          <textarea id="userInput" rows="3" class="p-2 border rounded" placeholder="Ask me anything... (e.g. How to apply for a business loan?)"></textarea>
-          <button onclick="sendToCopilot()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" id="askButton">Ask</button>
-          <div id="aiResponse" class="bg-white p-2 rounded shadow text-sm"></div>
+    <!-- Module Section -->
+    <div class="container mx-auto p-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button onclick="loadModule('Business Basics')" class="module-button p-4 bg-indigo-500 text-white rounded-lg shadow-md">
+                Business Basics
+            </button>
+            <button onclick="loadModule('Digital Literacy')" class="module-button p-4 bg-green-500 text-white rounded-lg shadow-md">
+                Digital Literacy
+            </button>
+            <button onclick="loadModule('Financial Education')" class="module-button p-4 bg-red-500 text-white rounded-lg shadow-md">
+                Financial Education
+            </button>
         </div>
-      </div>
-    </section>
-  </main>
 
-  <script>
-    const uiText = {
-      Hindi: {
-        header: "नारी उड़ान - शिक्षा पोर्टल",
-        welcome: "स्वागत है, शिक्षार्थी! 🌼",
-        instruction: "अपनी भाषा चुनें और सीखना शुरू करें!",
-        module1Title: "व्यापार की मूल बातें",
-        module1Desc: "अपना व्यवसाय शुरू करने और बढ़ाने के तरीके सीखें।",
-        module2Title: "डिजिटल साक्षरता",
-        module2Desc: "स्मार्टफोन, ऐप और इंटरनेट का उपयोग करना समझें।",
-        module3Title: "वित्तीय शिक्षा",
-        module3Desc: "बचत, ऋण और पैसे का प्रबंधन सीखें।",
-        copilot: "एआई सहायक से बात करें",
-        ask: "पूछें"
-      },
-      Bengali: {
-        header: "নারী উড়ান - শিক্ষা পোর্টাল",
-        welcome: "স্বাগতম, শিক্ষার্থী! 🌼",
-        instruction: "আপনার ভাষা বেছে নিন এবং শেখা শুরু করুন!",
-        module1Title: "ব্যবসার মৌলিক বিষয়",
-        module1Desc: "নিজের ব্যবসা শুরু ও বাড়ানোর উপায় শিখুন।",
-        module2Title: "ডিজিটাল সাক্ষরতা",
-        module2Desc: "স্মার্টফোন, অ্যাপ এবং ইন্টারনেট ব্যবহারে দক্ষতা অর্জন করুন।",
-        module3Title: "আর্থিক শিক্ষা",
-        module3Desc: "সঞ্চয়, ঋণ এবং অর্থ ব্যবস্থাপনা সম্পর্কে জানুন।",
-        copilot: "এআই সহকারী এর সাথে কথা বলুন",
-        ask: "জিজ্ঞাসা করুন"
-      },
-      Marathi: {
-        header: "नारी उडान - शिक्षण पोर्टल",
-        welcome: "स्वागत आहे, शिक्षार्थी! 🌼",
-        instruction: "तुमची भाषा निवडा आणि शिक्षण सुरू करा!",
-        module1Title: "व्यवसाय मूलतत्त्वे",
-        module1Desc: "स्वतःचा व्यवसाय सुरू करण्याचे आणि वाढविण्याचे मार्ग शिका.",
-        module2Title: "डिजिटल साक्षरता",
-        module2Desc: "स्मार्टफोन, अ‍ॅप्स आणि इंटरनेटचा वापर समजून घ्या.",
-        module3Title: "आर्थिक शिक्षण",
-        module3Desc: "बचत, कर्ज आणि पैसे व्यवस्थित करण्याचे मार्ग शिका.",
-        copilot: "एआय सहायकाशी बोला",
-        ask: "विचारा"
-      }
-    };
+        <!-- Dynamic Content Area -->
+        <section id="moduleContent" class="mt-8 bg-indigo-100 rounded-xl p-4 shadow-md text-gray-700">
+            <!-- Dynamic module content will be loaded here -->
+        </section>
 
-    function translateUI() {
-      const lang = document.getElementById("languageSelect").value;
-      if (uiText[lang]) {
-        document.getElementById("headerText").innerText = uiText[lang].header;
-        document.getElementById("welcomeText").innerText = uiText[lang].welcome;
-        document.getElementById("instructionText").innerText = uiText[lang].instruction;
-        document.getElementById("module1Title").innerText = uiText[lang].module1Title;
-        document.getElementById("module1Desc").innerText = uiText[lang].module1Desc;
-        document.getElementById("module2Title").innerText = uiText[lang].module2Title;
-        document.getElementById("module2Desc").innerText = uiText[lang].module2Desc;
-        document.getElementById("module3Title").innerText = uiText[lang].module3Title;
-        document.getElementById("module3Desc").innerText = uiText[lang].module3Desc;
-        document.getElementById("copilotTitle").innerText = uiText[lang].copilot;
-        document.getElementById("askButton").innerText = uiText[lang].ask;
-      }
-    }
+        <!-- AI Copilot Section -->
+        <div class="mt-8 bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl mb-4">Chat with AI Copilot</h2>
+            <textarea id="userInput" placeholder="Ask anything about the course..." class="w-full p-4 bg-gray-100 rounded-lg mb-4"></textarea>
+            <select id="languageSelect" class="p-2 bg-gray-100 rounded-lg mb-4">
+                <option value="English">English</option>
+                <option value="Hindi">Hindi</option>
+                <!-- Add more language options here -->
+            </select>
+            <button onclick="sendToCopilot()" class="p-4 bg-blue-500 text-white rounded-lg shadow-md">
+                Ask Copilot
+            </button>
+            <div id="aiResponse" class="mt-4 text-gray-700">
+                <!-- AI Response will appear here -->
+            </div>
+        </div>
 
-    async function sendToCopilot() {
-      const question = document.getElementById("userInput").value;
-      const language = document.getElementById("languageSelect").value || "English";
-      const responseEl = document.getElementById("aiResponse");
-      responseEl.textContent = "Thinking...";
+        <!-- Certificate Button (Hidden initially) -->
+        <button id="certificateButton" onclick="generateCertificate('Selected Module')" class="mt-8 p-4 bg-green-500 text-white rounded-lg shadow-md hidden">
+            Download Certificate
+        </button>
+    </div>
 
-      try {
-        const res = await fetch("http://localhost:5000/api/ask", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ question, language })
-        });
-
-        const data = await res.json();
-        responseEl.textContent = data.answer || "Sorry, I couldn't understand that.";
-      } catch (err) {
-        responseEl.textContent = "Error connecting to AI Copilot.";
-      }
-    }
-
-    function loadModule(moduleName) {
-      alert(`Module '${moduleName}' is loading... (You can add dynamic module content here)`);
-    }
-  </script>
 </body>
 </html>
