@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exciting Contact Page</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #87CEEB, #B0E0E6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .background-img {
+            position: absolute;
+            width: 50vw;
+            height: 50vh;
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0.8;
+        }
+
+        .img1 { top: 0; left: 0; background-image: url('https://cdn.pixabay.com/photo/2015/01/25/21/02/phone-612061_640.jpg'); }
+        .img2 { top: 0; right: 0; background-image: url('https://www.shutterstock.com/image-photo/using-laptop-show-icon-address-600nw-2521386695.jpg'); }
+        .img3 { bottom: 0; left: 0; background-image: url('https://images.unsplash.com/opengraph/1x1.png?mark=https%3A%2F%2Fimages.unsplash.com%2Fopengraph%2Flogo.png&mark-w=64&mark-align=top%2Cleft&mark-pad=50&h=630&w=1200&blend=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1534536281715-e28d76689b4d%3Fcrop%3Dfaces%252Cedges%26h%3D630%26w%3D1200%26blend%3D000000%26blend-mode%3Dnormal%26blend-alpha%3D10%26mark-w%3D750%26mark-align%3Dmiddle%252Ccenter%26mark%3Dhttps%253A%252F%252Fimages.unsplash.com%252Fopengraph%252Fsearch-input.png%253Fw%253D750%2526h%253D84%2526txt%253Dcontact%252Bus%2526txt-pad%253D80%2526txt-align%253Dmiddle%25252Cleft%2526txt-color%253D%252523000000%2526txt-size%253D40%2526txt-width%253D660%2526txt-clip%253Dellipsis%2526auto%253Dformat%2526fit%253Dcrop%2526q%253D60%26auto%3Dformat%26fit%3Dcrop%26q%3D60%26ixid%3DM3wxMjA3fDB8MXxzZWFyY2h8NHx8Y29udGFjdCUyMHVzfGVufDB8fHx8MTc0MDEzMzkzOXww%26ixlib%3Drb-4.0.3&blend-w=1&auto=format&fit=crop&q=60'); }
+        .img4 { bottom: 0; right: 0; background-image: url('https://startupmiles.com/wp-content/uploads/2021/10/Contact-Us-StartupMiles.jpg'); }
+
+        .contact-container {
+            background: rgba(255, 255, 255, 0.95); /* More visible */
+            padding: 30px; /* Increased padding */
+            border-radius: 15px; /* Softer edges */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+            width: 420px; /* Slightly larger width */
+            text-align: center;
+            z-index: 2; /* Ensure it's above background images */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .contact-container input, .contact-container select, .contact-container textarea {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: block;
+        }
+
+        .contact-container button {
+            width: 100%;
+            padding: 12px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .contact-container button:hover {
+            background: #0056b3;
+        }
+
+        .icons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .icons a img {
+            width: 35px;
+            height: 35px;
+        }
+    </style>
+    <script src="Contact Script.js" defer></script>
+</head>
+<body>
+    <div class="background-img img1"></div>
+    <div class="background-img img2"></div>
+    <div class="background-img img3"></div>
+    <div class="background-img img4"></div>
+    
+    <section class="contact-container">
+        <h2>Contact Us</h2>
+        <p>Have questions? We're here to help!</p>
+        
+        <form id="contactForm">
+            <div class="input-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="input-group">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject">
+                    <option value="general">General Inquiry</option>
+                    <option value="support">Support</option>
+                    <option value="feedback">Feedback</option>
+                    <option value="partnership">Partnership</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+
+            <button type="submit">Send Message</button>
+        </form>
+
+        <div class="icons">
+            <a href="mailto: snigdhasaha.student@gmail.com" target="_blank">
+                <img src="https://i.pinimg.com/564x/af/36/ec/af36ecd52b1404909dd3be71c2886d1a.jpg" alt="Email">
+            </a>
+            <a href="https://github.com/Snigdha977/Naari_Udaan" target="_blank">
+                <img src="https://cdn.dribbble.com/userupload/3931174/file/original-3a98d98b1add2291c30c13638f64c091.png?resize=400x0" alt="GitHub">
+            </a>
+        </div>
+    </section>
+</body>
+</html>
