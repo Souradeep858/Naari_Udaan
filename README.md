@@ -39,7 +39,7 @@
 ## 💻 Tech Stack
 | Area        | Tools / Frameworks                          |
 |-------------|----------------------------------------------|
-| Frontend    | HTML, Tailwind CSS                          |
+| Frontend    | HTML, Tailwind CSS ,Bootstrap,Javascript                       |
 | Backend     | Python Flask                                |
 | AI/ML       | GPT-3.5 / Text t5, VADER, Decision Tree and Logistic Regression |
 | Dataset     | pandas, CSV (cleaned 1250-entry dataset)     |
