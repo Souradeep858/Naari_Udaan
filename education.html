@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Portal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      .dynamic-bg {
+        background-size: cover;
+        background-position: center;
+        transition: background 1s ease-in-out;
+      }
+  
+      .avatar-bounce {
+        animation: bounce 2s infinite;
+      }
+  
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+  
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+  
+      select option {
+        color: black;
+      }
+  
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://smallenterpriseindia.com/wp-content/uploads/2024/03/1709864973578.jpg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+        z-index: -1;
+      }
+    </style>
+    <script>
+        // Dynamic Module Content
+        function loadModule(moduleName) {
+            const content = {
+                'Business Basics': {
+                    content: `
+                        <h2 class="text-2xl font-semibold">Business Basics</h2>
+                        <p class="mt-4">In this module, you will learn about the fundamentals of starting and growing a business. Topics include:</p>
+                        <ul class="list-disc pl-5 mt-2">
+                            <li>How to identify business opportunities</li>
+                            <li>Understanding markets and customers</li>
+                            <li>Building a business plan</li>
+                            <li>Financing your business</li>
+                        </ul>
+                        <p class="mt-4">By the end of this module, you will have a strong foundation in business management!</p>
+                    `,
+                },
+                'Digital Literacy': {
+                    content: `
+                        <h2 class="text-2xl font-semibold">Digital Literacy</h2>
+                        <p class="mt-4">In this module, you'll get to understand how to use smartphones, apps, and the internet effectively. Topics include:</p>
+                        <ul class="list-disc pl-5 mt-2">
+                            <li>How to operate digital devices</li>
+                            <li>Using mobile apps for business and communication</li>
+                            <li>Understanding internet safety</li>
+                            <li>Basic troubleshooting skills</li>
+                        </ul>
+                        <p class="mt-4">This module is designed to help you be confident using digital tools!</p>
+                    `,
+                },
+                'Financial Education': {
+                    content: `
+                        <h2 class="text-2xl font-semibold">Financial Education</h2>
+                        <p class="mt-4">In this module, you will explore how to manage money, save, and grow your finances. Topics include:</p>
+                        <ul class="list-disc pl-5 mt-2">
+                            <li>Saving strategies</li>
+                            <li>Understanding loans and credit</li>
+                            <li>Basic investment principles</li>
+                            <li>Managing business cash flow</li>
+                        </ul>
+                        <p class="mt-4">By the end of this module, you'll have a solid understanding of managing your finances effectively!</p>
+                    `,
+                },
+            };
+
+            const moduleContent = content[moduleName].content;
+            const moduleContainer = document.getElementById('moduleContent');
+            moduleContainer.innerHTML = moduleContent;
+
+            // Show the certificate button after module completion
+            setTimeout(() => {
+                alert(`Congratulations! You have completed the ${moduleName} course.`);
+                document.getElementById('certificateButton').classList.remove('hidden');
+            }, 3000); // Simulated delay for reading the module
+        }
+
+        // AI Copilot Communication
+        async function sendToCopilot() {
+            const question = document.getElementById("userInput").value;
+            const language = document.getElementById("languageSelect").value || "English";
+            const responseEl = document.getElementById("aiResponse");
+            responseEl.textContent = "Thinking...";
+
+            if (!question) {
+                responseEl.textContent = "Please enter a question.";
+                return;
+            }
+
+            try {
+                const res = await fetch("http://localhost:5000/api/ask", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ question, language }),
+                });
+
+                const data = await res.json();
+                if (data.answer) {
+                    responseEl.textContent = data.answer;
+                } else {
+                    responseEl.textContent = "Sorry, I couldn't understand that.";
+                }
+            } catch (err) {
+                responseEl.textContent = "Error connecting to AI Copilot. Please try again.";
+            }
+        }
+
+        // Certificate Generation
+        function generateCertificate(moduleName) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Add title to the certificate
+            doc.setFontSize(22);
+            doc.text('Certificate of Completion', 105, 30, null, null, 'center');
+
+            // Add the text for the certificate
+            doc.setFontSize(16);
+            doc.text(`This certifies that`, 105, 60, null, null, 'center');
+            doc.text(`[Student's Name] has successfully completed`, 105, 70, null, null, 'center');
+            doc.text(`the course: ${moduleName}`, 105, 80, null, null, 'center');
+
+            // Add date and signature (simplified)
+            const date = new Date().toLocaleDateString();
+            doc.text(`Date: ${date}`, 105, 100, null, null, 'center');
+
+            // Save the PDF as a certificate
+            doc.save(`${moduleName}_Certificate.pdf`);
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header Section -->
+    <header class="bg-blue-500 text-white text-center p-4">
+        <h1 class="text-3xl">Welcome to the Education Portal</h1>
+    </header>
+
+    <!-- Module Section -->
+    <div class="container mx-auto p-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button onclick="loadModule('Business Basics')" class="module-button p-4 bg-indigo-500 text-white rounded-lg shadow-md">
+                Business Basics
+            </button>
+            <button onclick="loadModule('Digital Literacy')" class="module-button p-4 bg-green-500 text-white rounded-lg shadow-md">
+                Digital Literacy
+            </button>
+            <button onclick="loadModule('Financial Education')" class="module-button p-4 bg-red-500 text-white rounded-lg shadow-md">
+                Financial Education
+            </button>
+        </div>
+
+        <!-- Dynamic Content Area -->
+        <section id="moduleContent" class="mt-8 bg-indigo-100 rounded-xl p-4 shadow-md text-gray-700">
+            <!-- Dynamic module content will be loaded here -->
+        </section>
+
+        <!-- AI Copilot Section -->
+        <div class="mt-8 bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl mb-4">Chat with AI Copilot</h2>
+            <textarea id="userInput" placeholder="Ask anything about the course..." class="w-full p-4 bg-gray-100 rounded-lg mb-4"></textarea>
+            <label for="languageSelect" class="block text-gray-700 mb-2">Select Language:</label>
+            <!-- Google Translate Container -->
+<div id="google_translate_element" class="mb-4"></div>
+
+<!-- Google Translate Scripts -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      { pageLanguage: 'en' },
+      'google_translate_element'
+    );
+  }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  
+            <button onclick="sendToCopilot()" class="p-4 bg-blue-500 text-white rounded-lg shadow-md">
+                Ask Copilot
+            </button>
+            <div id="aiResponse" class="mt-4 text-gray-700">
+                <!-- AI Response will appear here -->
+            </div>
+        </div>
+
+        <!-- Certificate Button (Hidden initially) -->
+        <button id="certificateButton" onclick="generateCertificate('Selected Module')" class="mt-8 p-4 bg-green-500 text-white rounded-lg shadow-md hidden">
+            Download Certificate
+        </button>
+    </div>
+
+</body>
+</html>

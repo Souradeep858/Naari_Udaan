@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Powered Welcome App for Rural Women Entrepreneurs</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .dynamic-bg {
+      background-size: cover;
+      background-position: center;
+      transition: background 1s ease-in-out;
+    }
+    .avatar-bounce {
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    select option {
+      color: black;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://smallenterpriseindia.com/wp-content/uploads/2024/03/1709864973578.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 1.2,.;
+      z-index: -1;
+    }
+    .option-buttons button {
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(to right, #06beb6, #48b1bf);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .option-buttons button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body class="h-screen w-screen overflow-hidden">
+
+  <!-- Language Selection Page -->
+  <div id="language-screen" class="flex flex-col justify-center items-center h-full">
+    <div class="bg-white bg-opacity-90 p-8 rounded-xl text-center shadow-2xl">
+      <h1 class="text-4xl font-extrabold mb-6 text-gray-900">Choose Your Language</h1>
+      <div class="flex space-x-4 mb-6 flex-wrap justify-center">
+        <button class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-xl text-lg font-semibold" onclick="selectLanguage('hi')">हिंदी</button>
+        <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-xl text-lg font-semibold" onclick="selectLanguage('en')">English</button>
+        <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-xl text-lg font-semibold" onclick="selectLanguage('bn')">বাংলা</button>
+        <button class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-xl text-lg font-semibold" onclick="selectLanguage('mr')">मराठी</button>
+      </div>
+      <div class="mt-4">
+        <label for="avatar-select" class="block text-lg font-bold mb-2">Choose Your Avatar</label>
+        <select id="avatar-select" class="p-2 rounded border text-black">
+          <option value="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">🤖 Avatar 1</option>
+          <option value="https://cdn-icons-png.flaticon.com/512/1995/1995535.png">🧠 Avatar 2</option>
+          <option value="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">👩‍💼 Avatar 3</option>
+          <option value="https://cdn-icons-png.flaticon.com/512/944/944743.png">🐦 Avatar 4</option>
+          <option value="https://cdn-icons-png.flaticon.com/512/5904/5904969.png">🌾 Avatar 5</option>
+          <option value="https://cdn-icons-png.flaticon.com/512/190/190730.png">👩‍🌾 Avatar 6</option>
+        </select>
+      </div>
+      <div class="mt-6">
+        <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2 rounded-xl" onclick="goToWelcome()">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Welcome Page with Chatbot -->
+  <div id="welcome-screen" class="hidden flex flex-col justify-center items-center text-black text-center h-full dynamic-bg p-6 relative">
+    <div class="bg-white bg-opacity-20 backdrop-blur-md border border-white border-opacity-30 rounded-2xl p-8 shadow-2xl w-full max-w-2xl flex flex-col items-center">
+      <h2 id="time-greeting" class="text-2xl sm:text-3xl font-bold mb-2"></h2>
+      <h1 id="welcome-message" class="text-4xl sm:text-5xl font-extrabold mb-2 text-black drop-shadow-lg"></h1>
+      <p id="current-datetime" class="text-md sm:text-lg mb-4 italic text-black"></p>
+      <img id="avatar-image" src="" alt="AI Avatar" class="w-24 h-24 avatar-bounce mb-6 rounded-full border-2 border-white shadow-lg">
+
+      <p class="text-xl sm:text-2xl italic mb-6 max-w-lg text-black font-medium drop-shadow">“Empower yourself financially, one step at a time.”</p>
+
+      <div id="chatbot-box" class="w-full bg-white bg-opacity-30 backdrop-blur-lg border border-white border-opacity-20 rounded-xl p-6 mb-6">
+        <p id="chatbot-msg" class="text-lg sm:text-xl font-semibold mb-4 text-black drop-shadow">How are you feeling today?</p>
+        <input id="mood-input" type="text" placeholder="Type your mood here..." class="w-full p-3 rounded-lg bg-white bg-opacity-80 text-black text-lg shadow-inner" onkeydown="if(event.key==='Enter')handleMoodInput()">
+      </div>
+
+      <div class="absolute bottom-8 flex flex-col items-center space-y-4 w-full px-4">
+        <p class="text-lg font-medium italic text-black drop-shadow">“Small steps today lead to financial freedom tomorrow.”</p>
+        <button class="text-white px-8 py-3 rounded-xl font-bold bg-gradient-to-r from-purple-500 to-indigo-600 shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse hover:animate-none hover:scale-105" onclick="showOptions()">✨ Get Started</button>
+      </div>
+    </div>
+
+    <div id="options-menu" class="hidden absolute bottom-0 mb-24 flex flex-col items-center space-y-4 w-full px-4">
+      <div class="option-buttons space-y-4">
+        <button onclick="window.location.href='login.html'">Login as a New User</button>
+        <button onclick="window.location.href='home.html'">Go to Home Page</button>
+        <button onclick="window.location.href='education.html'">Explore Financial Education</button>
+        <button onclick="window.location.href='marketplace.html'">Visit Marketplace</button>
+        <button onclick="window.location.href='networking.html'">Networking with Mentors</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        welcome: "Welcome to your journey of financial empowerment!",
+        chatbot: "How are you feeling today? (e.g., happy, sad, excited)"
+      },
+      hi: {
+        welcome: "आपकी वित्तीय सफलता की यात्रा में आपका स्वागत है!",
+        chatbot: "आप आज कैसा महसूस कर रहे हैं? (जैसे खुश, दुखी, उत्साहित)"
+      },
+      bn: {
+        welcome: "আপনার আর্থিক সাফল্যের যাত্রায় স্বাগতম!",
+        chatbot: "আজ আপনি কেমন অনুভব করছেন? (যেমন খুশি, দুঃখিত, উত্তেজিত)"
+      },
+      mr: {
+        welcome: "आपल्या आर्थिक सक्षमीकरणाच्या प्रवासात आपले स्वागत आहे!",
+        chatbot: "आज तुम्ही कसे वाटत आहे? (उदा. आनंदी, दुःखी, उत्साही)"
+      }
+    };
+
+    let userLang = 'en';
+
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      speechSynthesis.speak(utterance);
+    }
+
+    function getTimeGreeting() {
+      const hour = new Date().getHours();
+      if (hour < 12) return "Good Morning!";
+      if (hour < 18) return "Good Afternoon!";
+      return "Good Evening!";
+    }
+
+    function showDateTime() {
+      const now = new Date();
+      document.getElementById("current-datetime").innerText = now.toLocaleString();
+    }
+
+    function goToWelcome() {
+      const lang = userLang;
+      const welcomeText = translations[lang].welcome;
+      const chatbotText = translations[lang].chatbot;
+
+      document.getElementById('language-screen').style.display = 'none';
+      document.getElementById('welcome-screen').style.display = 'flex';
+
+      document.getElementById('welcome-message').innerText = welcomeText;
+      document.getElementById('chatbot-msg').innerText = chatbotText;
+      document.getElementById('time-greeting').innerText = getTimeGreeting();
+      showDateTime();
+
+      const selectedAvatar = document.getElementById('avatar-select').value;
+      document.getElementById('avatar-image').src = selectedAvatar;
+
+      speak(getTimeGreeting() + ' ' + welcomeText + ' ' + chatbotText);
+    }
+
+    function selectLanguage(lang) {
+      userLang = lang;
+    }
+
+    async function handleMoodInput() {
+      const mood = document.getElementById('mood-input').value.trim().toLowerCase();
+      if (!mood) return;
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+
+          try {
+            const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=demo&q=${lat},${lon}`);
+            const data = await res.json();
+            const weather = data.current.condition.text.toLowerCase();
+            updateBackground(weather, mood);
+          } catch (e) {
+            console.error("Weather fetch error:", e);
+            updateBackground("clear", mood);
+          }
+        });
+      } else {
+        updateBackground("clear", mood);
+      }
+    }
+
+    function updateBackground(weather, mood) {
+      const bgMap = {
+        happy: {
+          sunny: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+          rainy: 'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6',
+          clear: 'https://images.unsplash.com/photo-1520975922371-a6f63c6a3141'
+        },
+        sad: {
+          rainy: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0',
+          cloudy: 'https://images.unsplash.com/photo-1600051461971-1e9bd6c3c7f7',
+          clear: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e'
+        },
+        excited: {
+          sunny: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+          cloudy: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e',
+          clear: 'https://images.unsplash.com/photo-1521747116042-5a810fda9664'
+        }
+      };
+
+      const moodKey = ["happy", "sad", "excited"].includes(mood) ? mood : "happy";
+      const weatherKey = weather.includes("rain") ? "rainy" : weather.includes("cloud") ? "cloudy" : "sunny";
+
+      const bgUrl = bgMap[moodKey]?.[weatherKey] || bgMap["happy"]["clear"];
+      document.getElementById("welcome-screen").style.backgroundImage = `url('${bgUrl}')`;
+    }
+
+    function showOptions() {
+      document.getElementById("options-menu").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
