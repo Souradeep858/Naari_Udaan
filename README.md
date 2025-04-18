@@ -69,10 +69,10 @@ Full dataset available in `Naari_Udaan_Complete_Clean_Dataset.csv`
 ---
 
 ## 🤝 Contributors
--  [Snigdha saha ] (Team leader , AI + Web)
--  [Sayantan Sahoo] (active contributor +team member in this project,(web+security handling))
--  [Souradeep Chakraborty] (active contributor +team member in this project,(web))
--  [Rup Debnath] (active contributor +team member in this project,(web))
+-  [Snigdha saha ] (Team leader , AI + Web(frontend+backend))
+-  [Sayantan Sahoo] (active contributor +team member in this project,(web(Backend))
+-  [Souradeep Chakraborty] (active contributor +team member in this project,(web(Frontend))
+-  [Rup Debnath] (active contributor +team member in this project,(web(Frontend))
 
 
 ## 📬 Contact
