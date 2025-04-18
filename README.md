@@ -1,6 +1,6 @@
 # 🌸 Naari Udaan: AI for Financial Empowerment of Rural Women
 
-## 📌 Project Overview
+## 📌 Project Oveview
 **Naari Udaan** is a  multilingual AI-powered web platform designed to promote financial literacy and micro-investment education among rural women in India. It combines AI chat, sentiment detection, and gamified learning modules in local languages like Hindi, Bengali, and Marathi.
 --------
 ### 🧠 AI-Powered Interaction Flow
@@ -69,10 +69,10 @@ Full dataset available in `Naari_Udaan_Complete_Clean_Dataset.csv`
 ---
 
 ## 🤝 Contributors
--  [Snigdha saha ] (Team leader , AI + Web(frontend+backend))
--  [Sayantan Sahoo] (active contributor +team member in this project,(web(Backend))
--  [Souradeep Chakraborty] (active contributor +team member in this project,(web(Frontend))
--  [Rup Debnath] (active contributor +team member in this project,(web(Frontend))
+-  [Snigdha saha ] (Team leader , AI + Web)
+-  [Sayantan Sahoo] (active contributor +team member in this project,(web+security handling))
+-  [Souradeep Chakraborty] (active contributor +team member in this project,(web)
+-  [Rup Debnath] (active contributor +team member in this project,(web))
 
 
 ## 📬 Contact
