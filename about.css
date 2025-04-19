@@ -1,0 +1,335 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+.head {
+    height: 40px;
+    width: 1520px;
+    background-color:aliceblue;
+    border-radius: 25%;
+    padding-top: 10p;
+    margin-top: 20px;
+}
+.head:hover {
+    background-color: aqua;
+}
+h1{
+    font-size: 20px;
+    text-align: center;
+    color: rgba(14, 146, 169, 0.981);
+    padding-top: 8px;
+}
+h2{
+    text-align: center;
+    color: deeppink;
+    font-size: 30px;
+    padding-top: 20px;
+}
+.des{
+    height: 250px;
+    width: 1520px;
+    background-color: aliceblue;
+    border-radius: 3%;
+}
+.des:hover{
+    background-color: paleturquoise;
+}
+.des,p{
+    padding-top: 25px;
+}
+.body {
+    height: 150px;
+    width: 1520px;
+    background-color :aliceblue;
+    border-radius: 3%;
+}
+.body:hover {
+    background-color: paleturquoise;
+}
+h3{
+    font-size: 15px;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+h3,p{
+    font-size: 30px;
+    padding-left:20px ;
+}
+.main {
+    height: 175px;
+    width: 1520px;
+    background-color:aliceblue;
+    border-radius: 3%;
+}
+.main:hover{
+    background-color: paleturquoise;
+}
+h4{
+    font-size: 25px;
+    margin-top: 5px;
+}
+h4,p{
+    padding-left: 20px;
+    padding-top: 8px;
+    font-size: 30px;
+}
+.main,p{
+    padding-top: 5px;
+}
+.body,p{
+    padding-top: 8px;
+}
+.foot {
+    height: 350px;
+    width: 1520px;
+    background-color: aliceblue;
+    border-radius: 3%;
+    padding-top: 1px
+}
+.foot:hover {
+    background-color: paleturquoise;
+}
+h5{
+    font-size: 25px;
+    margin-top: 9px;
+    padding-left: 20px;
+}
+.foot,ul,li{
+    margin-top: 0.5px
+}
+.foot,p{
+    font-size: 20px;
+    padding-top: 5px;
+    margin-top: 0.5px;
+}
+.last {
+    height:350px;
+    width:1520px;
+    background-color:aliceblue;
+    border-radius: 3%;
+}
+.last:hover {
+    background-color: paleturquoise;
+}
+.last,h6 {
+    font-size: 25px;
+    margin-top: 0.5px;
+    padding-top: 10px;
+}
+.last,li {
+    margin-top: 0.5px;
+    padding-left: 10px;
+}
+.feature{
+    height: 200px;
+    width: 1520px;
+    background-color: aliceblue;
+    border-radius: 3%;
+}
+.feature:hover {
+    background-color: paleturquoise;
+}
+.feature,li{
+    font-size: 20px;
+}
+.join {
+    height: 150px;
+    width: 1520px;
+    background-color: aliceblue;
+    border-radius: 3%;
+}
+.join:hover{
+    background-color: paleturquoise;
+}
+.contact{
+    height: 100px;
+    width: 1520px;
+    background-color:aliceblue;
+    border-radius: 3%;
+}
+.contact:hover{
+    background-color: paleturquoise;
+}
+.con{
+    height: 300px;
+    width:1400px;
+    background-color: aliceblue;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 3%;
+    text-align: center;
+    margin-left: 65px;
+    margin-right: 50px;
+}
+.con:hover{
+    background-color: paleturquoise;
+}
+.st{
+    height: 80px;
+    width: 80px;
+    background-color: aquamarine;
+    margin-left: 60px;
+    border-radius: 80%;
+    background-image: url("snigdha.jpg");
+    background-size: cover;
+
+}
+.nd{
+    height: 80px;
+    width: 80px;
+    background-image: url("soura.jpg");
+    background-size: cover;
+    border-radius: 80%;
+    margin-left: 35px;
+}
+.rd{
+    height: 80px;
+    width: 80px;
+    background-image: url("rup.jpg");
+    background-size: cover;
+    border-radius: 80%;
+    margin-left: 35px;
+}
+.th{
+    height: 80px;
+    width: 80px;
+    background-image: url("sayan.jpg");
+    background-size: cover;
+    border-radius: 80%;
+    margin-left: 35px;
+}
+.one{
+    height: 200px;
+    width: 250px;
+    margin-left: 50px;
+    background-color: #43968b;
+    background-size: cover;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 70px;
+    margin-right: 70px;
+    border-radius: 30%;
+
+}
+.two{
+    height: 200px;
+    width: 300px;
+    background-color: #43968b;
+    background-size: cover;
+    padding-top: 15px;
+    padding-left: 4.5vw;
+    padding-right: 70px;
+    margin-right: 80px;
+    border-radius: 30%;
+}
+.three{
+    height: 200px;
+    width: 300px;
+    background-color:#43968b;
+    background-size: cover;
+    padding-top: 15px;
+    padding-left: 75px;
+    padding-right: 70px;
+    margin-right: 80px;
+    border-radius: 30%;
+}
+.four{
+    height: 200px;
+    width: 300px;
+    background-color: #43968b;
+    background-size: cover;
+    padding-top: 15px;
+    padding-left: 75px;
+    padding-right: 70px;
+    margin-right: 50px;
+    border-radius: 30%;
+}
+.footer {
+    background-color:#43968b;
+    color: white;
+    text-align: center;
+    padding: 0.8rem;
+    padding-bottom: 1.5rem;
+    margin-top: 7rem;
+    width: 96rem;
+  }
+ span{
+       text-align: left;
+       padding-left: 10px;
+       margin-left: 5px;
+       line-height: 15px;
+       font-size: 15px;
+       display: flex;
+       margin-top: 5px;
+
+  }
+  #feed{
+    font-size: 30px;
+    padding-right:1290px;
+  }
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  .form-group a{
+    text-decoration: none;
+  }
+  
+  input {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+  
+  .forgot-link {
+    display: block;
+    text-align: left;
+    font-size: 1rem;
+    color: #b13973;
+    margin-top: 0.25rem;
+    margin-left: 20px;
+  }
+  
+  .login-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.85rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 95px;
+    margin-left: 40px;
+    margin-top: 20px;
+  }
+  
+  .login-button:hover {
+    background-color: #901f63;
+  }
+  textarea {
+    font-size: 15px;
+  }
+  .feedback-tag {
+    margin-left: 20px;
+    margin-top: 15px;
+  }
+  #link{
+    text-align: left;
+    margin-left: 20px;
+  }
+  a{
+    margin-left: 20px;
+    color: rgb(233, 95, 169);
+    text-decoration: none;
+  }
+  
