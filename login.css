@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+   
+  body {
+    padding-top: 10px;
+    font-family: Arial, sans-serif;
+    background-image: url("images/naari.jpg");
+    background-size:cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .nav {
+    background-color: rgba(97, 90, 93, 0);
+    width: 100%;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: right;
+    max-width: 1200px;
+    margin-left: 900rem;
+  }
+  .nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 20px;
+    transition: color 0.3s ease;
+    margin: 20px;
+  }
+  .nav a:hover {
+    color: #f50d7d;
+  }
+  
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+  h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    margin: 2rem 0;
+    text-shadow: 2px 2px 4px rgba(19, 214, 201, 0.5);
+  }
+  h2{
+    color: #2cdacc;
+    font-size: 40px;
+  }
+  body h2:hover {
+    color: #f50d7d;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    margin-top: 7rem;
+  }
+  
+  .login {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .login-title {
+    text-align: center;
+    color: #e12e96;
+    margin-bottom: 1.5rem;
+    font-size: 30px;
+  } 
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  .form-group a{
+    text-decoration: none;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .forgot-link {
+    display: block;
+    text-align: right;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.25rem;
+  }
+  
+  .login-button {
+    background-color: #d171a3;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .login-button:hover {
+    background-color: #cda44d;
+  }
+  
+  .register-link {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #e12e96;
+  }
+  .register-link a{
+    text-decoration: none;
+  }
+
+  .footer {
+    background-color:#435d96;
+    color: white;
+    text-align: center;
+    padding: 0.8rem;
+    padding-bottom: 1.5rem;
+    margin-top: 7rem;
+    width: 96rem;
+  }
+ 
+  
