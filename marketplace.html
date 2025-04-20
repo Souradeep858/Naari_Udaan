@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Naari Udaan Marketplace</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="marketplace.js">
   <style>
     body {
       background: linear-gradient(to right, #f7f9fc, #e8f0fe);
       font-family: 'Segoe UI', sans-serif;
-      background-image: url('img.png');
+      background-image: url("women.webp");
       background-repeat: no-repeat;
       background-size: 100% 100%;
       background-attachment: fixed;
       background-size: cover;
+
     }
 
     h2, h4 {
@@ -51,11 +51,7 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       margin-bottom: 40px;
       transition: box-shadow 0.3s ease;
-      border: 2px,solid,blanchedalmond;
-    }
-
-    .add-product-form:hover {
-      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+      border: 2px solid blanchedalmond;
     }
 
     .form-control {
@@ -88,7 +84,6 @@
       background-color: #ffffff;
       margin-bottom: 25px;
       padding: 20px;
-      border: 2px,solid,beige;
     }
 
     .listing-card:hover {
@@ -104,6 +99,12 @@
     .card p {
       margin-bottom: 6px;
       color: #555;
+    }
+
+    .card img {
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
     }
 
     #locationFilter {
@@ -127,14 +128,17 @@
     <div class="add-product-form">
       <h4 class="mb-3">Add a Product</h4>
       <div class="row g-3">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <input type="text" id="productName" class="form-control" placeholder="Product Name" required />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <input type="text" id="productLocation" class="form-control" placeholder="Location" required />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <input type="number" id="productPrice" class="form-control" placeholder="Price (₹)" required />
+        </div>
+        <div class="col-md-3">
+          <input type="text" id="productImage" class="form-control" placeholder="Image URL" required />
         </div>
         <div class="col-12 text-end">
           <button class="btn btn-primary" onclick="addProduct()">Add Now</button>
@@ -153,110 +157,112 @@
     <div class="row" id="listingContainer"></div>
   </div>
 
-<!-- Google Translate -->
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement(
-      {pageLanguage: 'en'},
-      'google_translate_element'
-    );
-  }
-</script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<!-- Script -->
-<script>
-  const listingContainer = document.getElementById("listingContainer");
-  const cartCount = document.getElementById("cartCount");
-  let cartItems = 0;
-
-  const listings = [
-    { name: "Organic Cotton", location: "Delhi(New Delhi)", price: "200/kg"},
-    { name: "Handmade Jute", location: "Kolkata(West Bengal)", price: "150/kg" },
-    { name: "Pure ghee", location: "Pune(Maharastra)", price: "850/kg" },
-    { name: "Butter", location: "Kolkata(West Bengal)", price: "450/kg" },
-    { name: "Handmade ladies bag", location: "Durgapur(West Bengal)", price: "450/piece" },
-    { name: "Handloom saree", location: "Mohali(Punjab)", price: "900" },
-    { name: "Organic toothpaste", location: "Kolkata(West Bengal)", price: "350/kg" },
-    { name: "Tasty pickle", location: "Lucknow(Uttar Pradesh)", price: "100/kg" },
-    { name: "Herbal hair oil", location: "Kolkata(West Bengal)", price: "850/Litre" },
-    { name: "Pure agarbatti", location: "Malda(West Bengal)", price:"70/kg"},
-    { name: "Paper plates", location:"Muzaffarnagar(Uttar Pradesh)", price:"1600/bundle"},
-    { name: "Bamboo Craft Items", location:"Shantiniketan(West Bengal)", price:"600"},
-    { name: "Terracotta Items", location:"Bishnupur(West Bengal)", price:"250-750/piece"},
-    { name: "Madhubani Paintings", location:"Patna(Bihar)", price:"1000-3000/piece"},
-    { name: "Embroidered Kurtis", location:"Jaipur(Rajasthan)", price:"500-1500/piece"},
-    { name: "Organic Honey", location:"Siliguri(West Bengal)", price:"400/kg"},
-    { name: "Herbal Soaps", location:"Guahati(Assam)", price:"150/piece"},
-    { name: "Wooden Dolls", location:"Katwa(West Bengal)", price:"300/piece"},
-    { name: "Shola art", location:"Murshidabad(West Bengal)", price:"600-800/piece"},
-    { name: "Hand Fans (Pakha)", location:"Raiganj(West Bengal)", price:"40/piece"},
-    { name: "Karigiri Pottery", location:"Vellore(Tamilnadu)", price:"500-3000/piece"},
-    { name: "Silver Filigree", location:"Cuttack(Odisha)", price:"1000-3000/piece"},
-    { name: "Marayoor Jaggery", location:"Marayoor(Kerala)", price:"150/kg"},
-    { name: "Lac Bangles", location:"Dhanbad(Jharkhand)", price:"200/set"},
-    { name: "Paitkar Paintings", location:"Ranchi(Jharkhand)", price:"2000-4000/piece"},
-    { name: "Beadwork Jewellery", location:"Shillong(Meghalaya)", price:"200-800/piece"},
-    { name: "Tsüngkotepsü", location:"Kohima(Nagaland)", price:"280/sq.feet"},
-    { name: "Rignai (Traditional Wrap-Around Skirt)", location:"Udaipur(Tripura)", price:"2000/set"},
-    { name: "Temi Tea (Organic)", location:"Gangtok(Arunachal Pradesh)", price:"1000/kg"},
-    { name: "Handmade Pine Needle Baskets", location:"Manali(Himachal Pradesh)", price:"2000-5000/piece"},
-    { name: "Hand-painted lampshades", location:"Indore(Madhya Pradesh)", price:"4000-6000/piece"},
-    { name: "Ayurvedic tooth powder", location:"Vijaywada(Andhra Pradesh)", price:"250/piece"},
-    { name: "Lambani Embroidery Bags", location:"Bangalore(Karnataka)", price:"600/piece"},    
-  ];
-
-  function renderListings(data) {
-    listingContainer.innerHTML = "";
-    data.forEach((item, i) => {
-      const card = document.createElement("div");
-      card.className = "col-md-4 listing-card";
-      card.innerHTML = `
-        <div class="card p-4 h-100">
-          <h5>${item.name}</h5>
-          <p>📍 ${item.location}</p>
-          <p>💰 ₹${item.price}</p>
-          <button class="btn btn-primary mt-2" onclick="addToCart()">Buy Now</button>
-        </div>
-      `;
-      listingContainer.appendChild(card);
-    });
-  }
-
-  function addToCart() {
-    cartItems++;
-    cartCount.innerText = cartItems;
-    alert("Item added to cart!");
-  }
-
-  function addProduct() {
-    const name = document.getElementById("productName").value.trim();
-    const location = document.getElementById("productLocation").value.trim();
-    const price = document.getElementById("productPrice").value.trim();
-
-    if (name && location && price) {
-      listings.push({ name, location, price });
-      renderListings(listings);
-      document.getElementById("productName").value = "";
-      document.getElementById("productLocation").value = "";
-      document.getElementById("productPrice").value = "";
-      alert("Product added successfully!");
-    } else {
-      alert("Please fill in all the fields.");
+  <!-- Google Translate -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        {pageLanguage: 'en'},
+        'google_translate_element'
+      );
     }
-  }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-  document.getElementById("locationFilter").addEventListener("input", function () {
-    const filter = this.value.toLowerCase();
-    const filteredListings = listings.filter(listing =>
-      listing.location.toLowerCase().includes(filter)
-    );
-    renderListings(filteredListings);
-  });
+  <!-- Script -->
+  <script>
+    const listingContainer = document.getElementById("listingContainer");
+    const cartCount = document.getElementById("cartCount");
+    let cartItems = 0;
 
-  // Load initial listings
-  window.onload = () => renderListings(listings);
-</script>
+    const listings = [
+      { name: "Organic Cotton", location: "Delhi(New Delhi)", price: "200/kg", image:"organic cotton.webp"},
+      { name: "Handmade Jute products", location: "Kolkata(West Bengal)", price: "150/kg", image: "handmade jute.jpeg" },
+      { name: "Pure ghee", location: "Pune(Maharashtra)", price: "850/kg", image: "pure ghee.jpeg" },
+      { name: "Butter", location: "Kolkata(West Bengal)", price: "450/kg", image: "butter.jpeg" },
+      { name: "Handmade ladies bag", location: "Durgapur(West Bengal)", price: "450/piece", image: "handmade ladies bag.jpeg" },
+      { name: "Handloom saree", location: "Mohali(Punjab)", price: "900", image: "handloom saree.jpg" },
+      { name: "Organic toothpaste", location: "Kolkata(West Bengal)", price: "350/kg", image: "organic toothpaste.webp" },
+      { name: "Tasty pickle", location: "Lucknow(Uttar Pradesh)", price: "100/kg", image: "tasty pickle.jpeg" },
+      { name: "Herbal hair oil", location: "Kolkata(West Bengal)", price: "850/Litre", image: "herbal hair oil.jpeg" },
+      { name: "Pure agarbatti", location: "Malda(West Bengal)", price:"70/kg", image: "agarbatti.jpg" },
+        { name: "Paper plates", location:"Muzaffarnagar(Uttar Pradesh)", price:"1600/bundle", image: "paper plates.jpeg" },
+        { name: "Bamboo Craft Items", location:"Shantiniketan(West Bengal)", price:"600", image: "bamboo crafts.jpeg" },
+        { name: "Terracotta Items", location:"Bishnupur(West Bengal)", price:"250-750/piece", image: "terracota.jpeg" },
+        { name: "Madhubani Paintings", location:"Patna(Bihar)", price:"1000-3000/piece", image: "madhuvani paintings.jpg" },
+        { name: "Embroidered Kurtis", location:"Jaipur(Rajasthan)", price:"500-1500/piece", image: "kurtis.jpg" },
+        { name: "Organic Honey", location:"Siliguri(West Bengal)", price:"400/kg", image: "honey.jpeg" },
+        { name: "Herbal Soaps", location:"Guahati(Assam)", price:"150/piece", image: "herbal soap.jpeg" },
+        { name: "Wooden Dolls", location:"Katwa(West Bengal)", price:"300/piece", image: "wooden dolls.jpeg" },
+        { name: "Shola art", location:"Murshidabad(West Bengal)", price:"600-800/piece", image: "shola art.jpg" },
+        { name: "Hand Fans (Pakha)", location:"Raiganj(West Bengal)", price:"40/piece", image: "hand phaka.jpeg" },
+        { name: "Karigiri Pottery", location:"Vellore(Tamilnadu)", price:"500-3000/piece", image: "korigiri pottery.jpeg" },
+        { name: "Silver Filigree", location:"Cuttack(Odisha)", price:"1000-3000/piece", image: "silver filigree.jpg" },
+        { name: "Marayoor Jaggery", location:"Marayoor(Kerala)", price:"150/kg", image: "marayoor jaggery.jpg" },
+        { name: "Lac Bangles", location:"Dhanbad(Jharkhand)", price:"200/set", image: "lac bangles.jpg"},
+        { name: "Paitkar Paintings", location:"Ranchi(Jharkhand)", price:"2000-4000/piece", image: "paitkar paintings.jpeg"},
+        { name: "Beadwork Jewelery", location:"Shillong(Meghalaya)", price:"200-800/piece", image: "beadwork jewelery.jpeg"},
+        { name: "Tsüngkotepsü", location:"Kohima(Nagaland)", price:"280/sq.feet", image: "nagaland shwal.avif"},
+        { name: "Rignai (Traditional Wrap-Around Skirt)", location:"Udaipur(Tripura)", price:"2000/set", image: "rignai.jpeg"},
+        { name: "Temi Tea (Organic)", location:"Gangtok(Arunachal Pradesh)", price:"1000/kg", image: "temi tea.jpeg"},
+        { name: "Handmade Pine Needle Baskets", location:"Manali(Himachal Pradesh)", price:"2000-5000/piece", image: "pine needle baskets.jpeg"},
+        { name: "Hand-painted lampshades", location:"Indore(Madhya Pradesh)", price:"4000-6000/piece", image: "lampshades.jpeg"},
+        { name: "Ayurvedic tooth powder", location:"Vijaywada(Andhra Pradesh)", price:"250/piece", image: "tooth powder.jpeg"},
+        { name: "Lambani Embroidery Bags", location:"Bangalore(Karnataka)", price:"600/piece", image: "karnataka bags.jpg"},
+    ];
 
+    function renderListings(data) {
+      listingContainer.innerHTML = "";
+      data.forEach((item) => {
+        const card = document.createElement("div");
+        card.className = "col-md-4 listing-card";
+        card.innerHTML = `
+          <div class="card p-4 h-100">
+            <img src="${item.image}" alt="${item.name}" class="img-fluid mb-3">
+            <h5>${item.name}</h5>
+            <p>📍 ${item.location}</p>
+            <p>💰 ₹${item.price}</p>
+            <button class="btn btn-primary mt-2" onclick="addToCart()">Buy Now</button>
+          </div>
+        `;
+        listingContainer.appendChild(card);
+      });
+    }
+
+    function addToCart() {
+      cartItems++;
+      cartCount.innerText = cartItems;
+      alert("Item added to cart!");
+    }
+
+    function addProduct() {
+      const name = document.getElementById("productName").value.trim();
+      const location = document.getElementById("productLocation").value.trim();
+      const price = document.getElementById("productPrice").value.trim();
+      const image = document.getElementById("productImage").value.trim();
+
+      if (name && location && price && image) {
+        listings.push({ name, location, price, image });
+        renderListings(listings);
+        document.getElementById("productName").value = "";
+        document.getElementById("productLocation").value = "";
+        document.getElementById("productPrice").value = "";
+        document.getElementById("productImage").value = "";
+        alert("Product added successfully!");
+      } else {
+        alert("Please fill in all the fields.");
+      }
+    }
+
+    document.getElementById("locationFilter").addEventListener("input", function () {
+      const filter = this.value.toLowerCase();
+      const filteredListings = listings.filter(listing =>
+        listing.location.toLowerCase().includes(filter)
+      );
+      renderListings(filteredListings);
+    });
+
+    // Load initial listings
+    window.onload = () => renderListings(listings);
+  </script>
 </body>
 </html>
