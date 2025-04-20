@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naari Udaan - Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://idronline.org/wp-content/uploads/2022/11/Resized_Group-of-women-farmers-standing-in-the-field_PC-SSP.jpg');
+      background-position: center;
+      opacity: 1.2;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <header class="bg-pink-600 text-white p-6 text-center text-3xl font-bold">
+    🌸 Naari Udaan
+    <nav class="mt-4 text-lg space-x-6">
+      <a href="community.html" class="hover:underline"> Build Your Community</a>
+      <a href="news_updates.html" class="hover:underline">News and Updates</a>
+      <a href="connect.html" class="hover:underline"> Connect with mentors</a>
+     
+    </nav>
+  </header>
+
+  <footer class="text-center text-sm text-gray-500 py-4">
+    &copy; 2024 Naari Udaan | Empowering Rural Women Entrepreneurs
+  </footer>
+          <!-- AI Copilot Section -->
+<div class="max-w-md w-full bg-white p-4 rounded-lg shadow-lg fixed bottom-6 left-1/2 transform -translate-x-1/2 z-10">
+  <h2 class="text-xl mb-2">Chat with AI Copilot</h2>
+  <textarea id="userInput" placeholder="Ask anything about the course..." class="w-full p-2 bg-gray-100 rounded-lg mb-2 text-sm"></textarea>
+  
+  <label for="languageSelect" class="block text-gray-700 mb-1 text-sm">Select Language:</label>
+  <!-- Google Translate Container -->
+  <div id="google_translate_element" class="mb-2"></div>
+
+  <!-- Google Translate Scripts -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en' },
+        'google_translate_element'
+      );
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <button onclick="sendToCopilot()" class="w-full p-2 bg-blue-500 text-white rounded-lg shadow-md text-sm">
+    Ask Copilot
+  </button>
+  
+  <div id="aiResponse" class="mt-2 text-gray-700 text-sm">
+    <!-- AI Response will appear here -->
+  </div>
+</div>
+
+
+  
+</body>
+</html>
