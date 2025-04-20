@@ -5,125 +5,258 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Naari Udaan Marketplace</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="marketplace.js">
   <style>
     body {
-      background-color: #f9f9f9;
+      background: linear-gradient(to right, #f7f9fc, #e8f0fe);
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('img.png');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-attachment: fixed;
+      background-size: cover;
     }
+
+    h2, h4 {
+      color: #343a40;
+      font-weight: 900;
+    }
+
+    .cart-button {
+      position: fixed;
+      top: 20px;
+      left: 30px;
+      z-index: 1000;
+    }
+
+    .cart-button .btn {
+      background-color: #6f42c1;
+      color: white;
+      font-weight: bold;
+      border-radius: 50px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+    }
+
+    .cart-button .btn:hover {
+      background-color: #59329c;
+      transform: scale(1.05);
+    }
+
+    .add-product-form {
+      background:#fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+      transition: box-shadow 0.3s ease;
+      border: 2px,solid,blanchedalmond;
+    }
+
+    .add-product-form:hover {
+      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+    }
+
+    .form-control {
+      border-radius: 10px;
+    }
+
+    .form-control:focus {
+      border-color: #6f42c1;
+      box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+    }
+
+    .btn-primary {
+      background-color: #6f42c1;
+      border: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #59329c;
+      transform: scale(1.03);
+    }
+
     .listing-card {
-      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      background-color: #ffffff;
+      margin-bottom: 25px;
+      padding: 20px;
+      border: 2px,solid,beige;
+    }
+
+    .listing-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    }
+
+    .card h5 {
+      font-weight: bold;
+      color: #6f42c1;
+    }
+
+    .card p {
+      margin-bottom: 6px;
+      color: #555;
+    }
+
+    #locationFilter {
+      border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="container mt-4">
-    <div id="google_translate_element" class="text-end mb-3"></div>
-    <h2 class="text-center mb-4">Raw Materials Marketplace</h2>
-
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <input type="text" class="form-control" id="locationFilter" placeholder="Enter your location to filter..."/>
-      </div>
-    </div>
-
-    <div class="row" id="listingContainer">
-      <!-- Sample listing card -->
-      <div class="col-md-4 listing-card" data-location="Delhi">
-        <div class="card p-3">
-          <h5>Organic Cotton</h5>
-          <p>Location: Delhi</p>
-          <p>Price: ₹200/kg</p>
-          <button class="btn btn-primary">Buy Now</button>
-        </div>
-      </div>
-
-      <div class="col-md-4 listing-card" data-location="Kolkata">
-        <div class="card p-3">
-          <h5>Handmade Jute</h5>
-          <p>Location: Kolkata</p>
-          <p>Price: ₹150/kg</p>
-          <button class="btn btn-primary">Buy Now</button>
-        </div>
-      </div>
-
-      <!-- More cards to be added dynamically from backend -->
-    </div>
+  <div class="cart-button">
+    <button class="btn">
+      🛒 Cart <span id="cartCount" class="badge bg-light text-dark ms-2">0</span>
+    </button>
   </div>
 
-  <!-- Google Translate -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement(
-        {pageLanguage: 'en'},
-        'google_translate_element'
-      );
-    }
-  </script>
-  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <div class="container mt-5">
+    <div id="google_translate_element" class="text-end mb-3"></div>
+    <h2 class="text-center mb-4"> Welcome to Naari Udaan Marketplace </h2>
 
-  <!-- Filter Script -->
-  <script>
-    const submitListingForm = document.getElementById("submitListingForm");
-    const nameInput = document.getElementById("nameInput");
-    const descriptionInput = document.getElementById("descriptionInput");
-    const priceInput = document.getElementById("priceInput");
-    const locationInput = document.getElementById("locationInput");
-    const imageInput = document.getElementById("imageInput");
-    const listingContainer = document.getElementById("listingContainer");
-  
-    // Function to load all listings
-    async function loadListings() {
-      const response = await fetch("/api/listings");
-      const data = await response.json();
-  
-      listingContainer.innerHTML = ""; // Clear existing listings
-  
-      data.listings.forEach((listing) => {
-        const card = document.createElement("div");
-        card.className = "col-md-4 listing-card";
-        card.innerHTML = `
-          <div class="card p-3">
-            <h5>${listing.name}</h5>
-            <p>${listing.description}</p>
-            <p>Price: ₹${listing.price}</p>
-            <p>Location: ${listing.location}</p>
-            ${listing.image_url ? `<img src="${listing.image_url}" alt="${listing.name}" class="img-fluid"/>` : ''}
-            <button class="btn btn-primary" onclick="addToCart(${listing.id})">Buy Now</button>
-          </div>
-        `;
-        listingContainer.appendChild(card);
-      });
+    <!-- Add Product Form -->
+    <div class="add-product-form">
+      <h4 class="mb-3">Add a Product</h4>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <input type="text" id="productName" class="form-control" placeholder="Product Name" required />
+        </div>
+        <div class="col-md-4">
+          <input type="text" id="productLocation" class="form-control" placeholder="Location" required />
+        </div>
+        <div class="col-md-4">
+          <input type="number" id="productPrice" class="form-control" placeholder="Price (₹)" required />
+        </div>
+        <div class="col-12 text-end">
+          <button class="btn btn-primary" onclick="addProduct()">Add Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Location Filter -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="locationFilter" placeholder="🔍 Filter by location..."/>
+      </div>
+    </div>
+
+    <!-- Listings -->
+    <div class="row" id="listingContainer"></div>
+  </div>
+
+<!-- Google Translate -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {pageLanguage: 'en'},
+      'google_translate_element'
+    );
+  }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- Script -->
+<script>
+  const listingContainer = document.getElementById("listingContainer");
+  const cartCount = document.getElementById("cartCount");
+  let cartItems = 0;
+
+  const listings = [
+    { name: "Organic Cotton", location: "Delhi(New Delhi)", price: "200/kg"},
+    { name: "Handmade Jute", location: "Kolkata(West Bengal)", price: "150/kg" },
+    { name: "Pure ghee", location: "Pune(Maharastra)", price: "850/kg" },
+    { name: "Butter", location: "Kolkata(West Bengal)", price: "450/kg" },
+    { name: "Handmade ladies bag", location: "Durgapur(West Bengal)", price: "450/piece" },
+    { name: "Handloom saree", location: "Mohali(Punjab)", price: "900" },
+    { name: "Organic toothpaste", location: "Kolkata(West Bengal)", price: "350/kg" },
+    { name: "Tasty pickle", location: "Lucknow(Uttar Pradesh)", price: "100/kg" },
+    { name: "Herbal hair oil", location: "Kolkata(West Bengal)", price: "850/Litre" },
+    { name: "Pure agarbatti", location: "Malda(West Bengal)", price:"70/kg"},
+    { name: "Paper plates", location:"Muzaffarnagar(Uttar Pradesh)", price:"1600/bundle"},
+    { name: "Bamboo Craft Items", location:"Shantiniketan(West Bengal)", price:"600"},
+    { name: "Terracotta Items", location:"Bishnupur(West Bengal)", price:"250-750/piece"},
+    { name: "Madhubani Paintings", location:"Patna(Bihar)", price:"1000-3000/piece"},
+    { name: "Embroidered Kurtis", location:"Jaipur(Rajasthan)", price:"500-1500/piece"},
+    { name: "Organic Honey", location:"Siliguri(West Bengal)", price:"400/kg"},
+    { name: "Herbal Soaps", location:"Guahati(Assam)", price:"150/piece"},
+    { name: "Wooden Dolls", location:"Katwa(West Bengal)", price:"300/piece"},
+    { name: "Shola art", location:"Murshidabad(West Bengal)", price:"600-800/piece"},
+    { name: "Hand Fans (Pakha)", location:"Raiganj(West Bengal)", price:"40/piece"},
+    { name: "Karigiri Pottery", location:"Vellore(Tamilnadu)", price:"500-3000/piece"},
+    { name: "Silver Filigree", location:"Cuttack(Odisha)", price:"1000-3000/piece"},
+    { name: "Marayoor Jaggery", location:"Marayoor(Kerala)", price:"150/kg"},
+    { name: "Lac Bangles", location:"Dhanbad(Jharkhand)", price:"200/set"},
+    { name: "Paitkar Paintings", location:"Ranchi(Jharkhand)", price:"2000-4000/piece"},
+    { name: "Beadwork Jewellery", location:"Shillong(Meghalaya)", price:"200-800/piece"},
+    { name: "Tsüngkotepsü", location:"Kohima(Nagaland)", price:"280/sq.feet"},
+    { name: "Rignai (Traditional Wrap-Around Skirt)", location:"Udaipur(Tripura)", price:"2000/set"},
+    { name: "Temi Tea (Organic)", location:"Gangtok(Arunachal Pradesh)", price:"1000/kg"},
+    { name: "Handmade Pine Needle Baskets", location:"Manali(Himachal Pradesh)", price:"2000-5000/piece"},
+    { name: "Hand-painted lampshades", location:"Indore(Madhya Pradesh)", price:"4000-6000/piece"},
+    { name: "Ayurvedic tooth powder", location:"Vijaywada(Andhra Pradesh)", price:"250/piece"},
+    { name: "Lambani Embroidery Bags", location:"Bangalore(Karnataka)", price:"600/piece"},    
+  ];
+
+  function renderListings(data) {
+    listingContainer.innerHTML = "";
+    data.forEach((item, i) => {
+      const card = document.createElement("div");
+      card.className = "col-md-4 listing-card";
+      card.innerHTML = `
+        <div class="card p-4 h-100">
+          <h5>${item.name}</h5>
+          <p>📍 ${item.location}</p>
+          <p>💰 ₹${item.price}</p>
+          <button class="btn btn-primary mt-2" onclick="addToCart()">Buy Now</button>
+        </div>
+      `;
+      listingContainer.appendChild(card);
+    });
+  }
+
+  function addToCart() {
+    cartItems++;
+    cartCount.innerText = cartItems;
+    alert("Item added to cart!");
+  }
+
+  function addProduct() {
+    const name = document.getElementById("productName").value.trim();
+    const location = document.getElementById("productLocation").value.trim();
+    const price = document.getElementById("productPrice").value.trim();
+
+    if (name && location && price) {
+      listings.push({ name, location, price });
+      renderListings(listings);
+      document.getElementById("productName").value = "";
+      document.getElementById("productLocation").value = "";
+      document.getElementById("productPrice").value = "";
+      alert("Product added successfully!");
+    } else {
+      alert("Please fill in all the fields.");
     }
-  
-    // Function to add item to cart
-    async function addToCart(listingId) {
-      try {
-        const response = await fetch("/api/add-to-cart", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ listing_id: listingId })
-        });
-  
-        const result = await response.json();
-        console.log(result);
-  
-        if (response.ok) {
-          alert("Item added to cart!");
-        } else {
-          alert(result.error || "Failed to add item to cart.");
-        }
-      } catch (error) {
-        console.error("Error adding item to cart:", error);
-        alert("An error occurred. Please try again later.");
-      }
-    }
-  
-    // Load listings when the page loads
-    window.onload = loadListings;
-  </script>
-  
+  }
+
+  document.getElementById("locationFilter").addEventListener("input", function () {
+    const filter = this.value.toLowerCase();
+    const filteredListings = listings.filter(listing =>
+      listing.location.toLowerCase().includes(filter)
+    );
+    renderListings(filteredListings);
+  });
+
+  // Load initial listings
+  window.onload = () => renderListings(listings);
+</script>
+
 </body>
 </html>
