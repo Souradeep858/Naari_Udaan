@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Naari Udaan – Connect with Mentors</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://taxila.in/blog/wp-content/uploads/2021/03/mentoring.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(17, 17, 17, 0.85);
+      z-index: -1;
+    }
+
+    .heading {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #0d6efd;
+    }
+
+    .mentor-card {
+      background-color: #ffffffd9;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .mentor-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .mentor-card img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .btn-sm {
+      font-size: 0.8rem;
+    }
+
+    .social-btns a {
+      margin-right: 5px;
+    }
+
+    #google_translate_element {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Google Translate Container -->
+  <div id="google_translate_element"></div>
+
+  <div class="container my-5">
+    <h2 class="text-center heading">🤝 Connect with Mentors</h2>
+    <div class="row" id="mentors-container"></div>
+  </div>
+
+  <!-- Live Chat Modal -->
+  <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-light">
+        <div class="modal-header">
+          <h5 class="modal-title" id="chatModalLabel">💬 Live Chat with Mentor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>This is a simulated live chat box.</strong> You can integrate real-time chat using Firebase, Socket.IO, or Django Channels.</p>
+          <textarea class="form-control mb-2" rows="3" placeholder="Type your message..."></textarea>
+          <button class="btn btn-primary w-100">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Google Translate Scripts -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en' },
+        'google_translate_element'
+      );
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- Mentors Section JS -->
+  <script>
+    const mentorsData = [
+      {
+        name: "Anita Sharma",
+        title: "Founder, Rural Roots",
+        image: "https://randomuser.me/api/portraits/women/68.jpg",
+        whatsapp: "https://wa.me/919999999999",
+        facebook: "https://facebook.com/anita.sharma",
+        twitter: "https://twitter.com/anita_sharma"
+      },
+      {
+        name: "Kavita Reddy",
+        title: "CEO, HandiCraft India",
+        image: "https://randomuser.me/api/portraits/women/45.jpg",
+        whatsapp: "https://wa.me/918888888888",
+        facebook: "https://facebook.com/kavita.reddy",
+        twitter: "https://twitter.com/kavita_reddy"
+      },
+      {
+        name: "Suman Das",
+        title: "Textile Entrepreneur",
+        image: "https://randomuser.me/api/portraits/women/21.jpg",
+        whatsapp: "https://wa.me/917777777777",
+        facebook: "https://facebook.com/suman.das",
+        twitter: "https://twitter.com/suman_das"
+      },
+      {
+        name: "Priya Roy",
+        title: "Craft Business Coach",
+        image: "https://randomuser.me/api/portraits/women/33.jpg",
+        whatsapp: "https://wa.me/916666666666",
+        facebook: "https://facebook.com/priya.roy",
+        twitter: "https://twitter.com/priya_roy"
+      },
+      {
+        name: "Nidhi Verma",
+        title: "Founder, NaariKala",
+        image: "https://randomuser.me/api/portraits/women/15.jpg",
+        whatsapp: "https://wa.me/915555555555",
+        facebook: "https://facebook.com/nidhi.verma",
+        twitter: "https://twitter.com/nidhi_verma"
+      },
+      {
+        name: "Deepa Bhatt",
+        title: "Social Entrepreneur",
+        image: "https://randomuser.me/api/portraits/women/55.jpg",
+        whatsapp: "https://wa.me/914444444444",
+        facebook: "https://facebook.com/deepa.bhatt",
+        twitter: "https://twitter.com/deepa_bhatt"
+      }
+    ];
+
+    const container = document.getElementById("mentors-container");
+
+    mentorsData.forEach((mentor) => {
+      const col = document.createElement("div");
+      col.className = "col-md-6 col-lg-4 mb-4";
+
+      col.innerHTML = `
+        <div class="card mentor-card text-center p-3">
+          <img src="${mentor.image}" class="card-img-top rounded-circle mx-auto mt-2" alt="${mentor.name}">
+          <div class="card-body">
+            <h5 class="card-title">${mentor.name}</h5>
+            <p class="card-text">${mentor.title}</p>
+            <div class="d-flex justify-content-center flex-wrap social-btns">
+              <a href="${mentor.whatsapp}" target="_blank" class="btn btn-success btn-sm">WhatsApp</a>
+              <a href="${mentor.facebook}" target="_blank" class="btn btn-primary btn-sm">Facebook</a>
+              <a href="${mentor.twitter}" target="_blank" class="btn btn-info btn-sm text-white">Twitter</a>
+            </div>
+            <button class="btn btn-dark btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#chatModal">Live Chat</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(col);
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
