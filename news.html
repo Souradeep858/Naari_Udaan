@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>News & Opportunities – Naari Udaan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://thumbs.dreamstime.com/b/news-woodn-dice-depicting-letters-bundle-small-newspapers-leaning-left-dice-34802664.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    /* Overlay to improve text readability */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(17, 17, 17, 0.85);
+      z-index: -1;
+    }
+
+    .heading {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #0d6efd;
+    }
+
+    .news-card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-color: #ffffffd9;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .news-card .card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 250px; /* Ensures all cards have at least this height */
+    }
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .news-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #343a40;
+    }
+
+    .news-date {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+
+    .news-desc {
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+
+    .btn-read {
+      margin-top: 15px;
+      margin-bottom: 0; /* Optional: ensures no extra bottom margin */
+    }
+  </style>
+
+  <!-- Google Translate -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        {pageLanguage: 'en'},
+        'google_translate_element'
+      );
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+ 
+  <div class="container my-5">
+    <div id="google_translate_element" class="mb-4 text-end"></div>
+    <h2 class="text-center heading">📰 News & Opportunities for Rural Women Entrepreneurs</h2>
+    <div class="row" id="news-list"></div>
+  </div>
+
+  <script>
+    const newsItems = [
+      {
+        title: "Pradhan Mantri Mudra Yojana (PMMY)",
+        date: "April 2025",
+        description: "Collateral-free loans up to ₹10 lakh to small/micro businesses led by women.",
+        link: "https://www.godrejcapital.com/media-blog/knowledge-centre/top-6-government-loan-schemes-for-women-entrepreneurs-in-2025"
+      },
+      {
+        title: "Mahila Samman Savings Certificate",
+        date: "April 2025",
+        description: "Special savings scheme for women with attractive interest and flexible terms.",
+        link: "https://www.godrejcapital.com/media-blog/knowledge-centre/top-6-government-loan-schemes-for-women-entrepreneurs-in-2025"
+      },
+      {
+        title: "Stand-Up India Scheme",
+        date: "April 2025",
+        description: "Loans from ₹10 lakh to ₹1 crore to women & SC/ST entrepreneurs for setting up enterprises.",
+        link: "https://www.startupindia.gov.in/content/sih/en/women_entrepreneurs.html"
+      },
+      {
+        title: "TREAD Scheme",
+        date: "April 2025",
+        description: "Credit + training support through NGOs for aspiring women entrepreneurs.",
+        link: "https://cleartax.in/s/women-empowerment-schemes-in-india"
+      },
+      {
+        title: "Digital Skilling by NASSCOM",
+        date: "April 2025",
+        description: "Free digital and entrepreneurial training for rural women.",
+        link: "https://www.nasscomfoundation.org/blog/women-empowerment/digital-skilling-opening-up-new-world-of-opportunities-for-rural-women-entrepreneurs/"
+      },
+      {
+        title: "National Handicrafts Development Programme (NHDP)",
+        date: "April 2025",
+        description: "Financial support for women artisans and entrepreneurs in the handicraft sector.",
+        link: "https://www.myscheme.gov.in/schemes/nhdp-randds"
+      }
+    ];
+
+    const newsList = document.getElementById("news-list");
+
+    newsItems.forEach(item => {
+      const col = document.createElement("div");
+      col.className = "col-md-6 col-lg-4 mb-4";
+
+      const card = document.createElement("div");
+      card.className = "card news-card";
+
+      card.innerHTML = `
+        <div class="card-body">
+          <div class="news-title">${item.title}</div>
+          <div class="news-date">${item.date}</div>
+          <div class="news-desc">${item.description}</div>
+          <button class="btn btn-sm btn-primary btn-read" onclick="window.open('${item.link}', '_blank')">Read More</button>
+        </div>
+      `;
+
+      col.appendChild(card);
+      newsList.appendChild(col);
+    });
+  </script>
+
+</body>
+</html>
